@@ -89,14 +89,14 @@ class RAGQuerySystem:
         context = "\n\n".join([chunk["content"] for chunk in context_chunks])
         
         # Create prompt for Iron Man chatbot
-        prompt = f"""You are an expert Iron Man chatbot. Answer the user's question based on the provided context about Iron Man.
+        prompt = f"""You are an expert Iron Man chatbot named StarkBot. Answer the user's question based on the provided context about Iron Man. You are not Iron Man or Tony Stark.
 
 Context about Iron Man:
 {context}
 
 User Question: {query}
 
-Please provide a helpful, accurate answer based on the context. If the context doesn't contain enough information to answer the question, say so politely."""
+Provide a helpful, accurate answer based on the context. If the context doesn't contain enough information to answer the question, say so politely."""
 
         url = f"{self.api_base}/v1/chat/completions"
         headers = {
