@@ -1,0 +1,26 @@
+.App {
+  height: 100vh;
+  display: flex;
+  background-color: #212121;
+  color: #ffffff;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  display: flex;
+  flex-direction: column;
+  background-color: #212121;
+  min-height: 100vh;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.sidebar-collapsed {
+  margin-left: 0;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+}
