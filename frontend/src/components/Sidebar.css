@@ -117,6 +117,10 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
   border: 1px solid transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .chat-item:hover {
@@ -153,6 +157,40 @@
 .chat-item.active .chat-time {
   color: #ffffff;
   opacity: 0.8;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: #666666;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.chat-item:hover .delete-button {
+  opacity: 1;
+}
+
+.chat-item:hover .delete-button:hover {
+  background-color: #ff4444;
+  color: #ffffff;
+}
+
+.chat-item.active .delete-button {
+  color: #ffffff;
+  opacity: 0;
+}
+
+.chat-item.active:hover .delete-button {
+  opacity: 1;
 }
 
 @media (max-width: 768px) {

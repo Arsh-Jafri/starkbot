@@ -30,6 +30,17 @@ function App() {
   };
 
   const createNewSession = () => {
+    // Check if there's already an empty session (no messages)
+    const emptySession = chatSessions.find(session => session.messages.length === 0);
+    
+    if (emptySession) {
+      // Switch to the existing empty session instead of creating a new one
+      setCurrentSessionId(emptySession.id);
+      setMessages([]);
+      return emptySession.id;
+    }
+    
+    // Only create a new session if no empty session exists
     const newSessionId = Date.now().toString();
     const newSession = {
       id: newSessionId,
@@ -42,6 +53,7 @@ function App() {
     setChatSessions(prev => [newSession, ...prev]);
     setCurrentSessionId(newSessionId);
     setMessages([]);
+    return newSessionId;
   };
 
   const switchToSession = (sessionId) => {
@@ -66,13 +78,37 @@ function App() {
     );
   };
 
-  const sendMessage = async (userMessage) => {
-    // Create a new session if none exists
-    let sessionId = currentSessionId;
-    if (!sessionId) {
-      createNewSession();
-      sessionId = Date.now().toString();
+  const deleteSession = (sessionId) => {
+    setChatSessions(prev => prev.filter(session => session.id !== sessionId));
+    
+    // If we're deleting the current session, switch to another session or clear
+    if (currentSessionId === sessionId) {
+      const remainingSessions = chatSessions.filter(session => session.id !== sessionId);
+      if (remainingSessions.length > 0) {
+        // Switch to the first remaining session
+        const newCurrentSession = remainingSessions[0];
+        setCurrentSessionId(newCurrentSession.id);
+        setMessages(newCurrentSession.messages);
+      } else {
+        // No sessions left, clear everything
+        setCurrentSessionId(null);
+        setMessages([]);
+      }
     }
+  };
+
+  const sendMessage = async (userMessage) => {
+    // Determine session ID - use current if it exists and is empty, otherwise create new
+    let sessionId = currentSessionId;
+    
+    if (!sessionId) {
+      // No current session, create one
+      sessionId = createNewSession();
+    } else if (messages.length > 0) {
+      // Current session has messages, create a new one
+      sessionId = createNewSession();
+    }
+    // If currentSessionId exists and messages.length === 0, use the existing empty session
 
     // Add user message to conversation
     const userMsg = { id: Date.now(), type: 'user', content: userMessage, timestamp: new Date() };
@@ -80,7 +116,7 @@ function App() {
     setMessages(updatedMessages);
     setIsLoading(true);
 
-    // Update session title with first message
+    // Update session title with first message and add to sidebar immediately
     if (messages.length === 0) {
       updateSessionTitle(sessionId, userMessage);
     }
@@ -153,6 +189,7 @@ function App() {
         currentSessionId={currentSessionId}
         onSwitchSession={switchToSession}
         onNewChat={createNewSession}
+        onDeleteSession={deleteSession}
       />
       <div className={`main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
         <Header 
