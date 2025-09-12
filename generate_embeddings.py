@@ -1,6 +1,6 @@
 import os
 import sys
-import psycopg2
+import psycopg
 import requests
 import json
 import time
@@ -67,22 +67,20 @@ class DatabaseManager:
             # Handle empty password
             password = os.getenv('DATABASE_PASSWORD') or None
             
-            self.connection = psycopg2.connect(
+            self.connection = psycopg.connect(
                 host=os.getenv('DATABASE_HOST'),
-                database=os.getenv('DATABASE_NAME'),
+                dbname=os.getenv('DATABASE_NAME'),
                 user=os.getenv('DATABASE_USER'),
                 password=password
             )
             print("✅ Connected to PostgreSQL database")
-        except psycopg2.Error as e:
+        except psycopg.Error as e:
             print(f"❌ Error connecting to database: {e}")
             raise
     
     def insert_chunk_with_embedding(self, chunk: TextChunk, embedding: List[float]):
         """Insert a chunk and its embedding into the database."""
         try:
-            cursor = self.connection.cursor()
-            
             # Convert embedding to PostgreSQL vector format
             embedding_str = '[' + ','.join(map(str, embedding)) + ']'
             
@@ -92,11 +90,11 @@ class DatabaseManager:
             VALUES (%s, %s)
             """
             
-            cursor.execute(query, (chunk.content, embedding_str))
-            self.connection.commit()
-            cursor.close()
+            with self.connection.cursor() as cursor:
+                cursor.execute(query, (chunk.content, embedding_str))
+                self.connection.commit()
             
-        except psycopg2.Error as e:
+        except psycopg.Error as e:
             print(f"❌ Error inserting chunk: {e}")
             self.connection.rollback()
             raise

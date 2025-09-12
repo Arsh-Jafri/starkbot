@@ -1,5 +1,5 @@
 import os
-import psycopg2
+import psycopg
 import requests
 import json
 from typing import List, Dict
@@ -20,14 +20,14 @@ class RAGQuerySystem:
         """Connect to PostgreSQL database."""
         try:
             password = os.getenv('DATABASE_PASSWORD') or None
-            self.connection = psycopg2.connect(
+            self.connection = psycopg.connect(
                 host=os.getenv('DATABASE_HOST'),
-                database=os.getenv('DATABASE_NAME'),
+                dbname=os.getenv('DATABASE_NAME'),
                 user=os.getenv('DATABASE_USER'),
                 password=password
             )
             print("✅ Connected to database")
-        except psycopg2.Error as e:
+        except psycopg.Error as e:
             print(f"❌ Database connection error: {e}")
             raise
     
@@ -57,8 +57,6 @@ class RAGQuerySystem:
     def search_similar_chunks(self, query_embedding: List[float], limit: int = 5) -> List[Dict]:
         """Find most similar chunks using vector similarity."""
         try:
-            cursor = self.connection.cursor()
-            
             # Convert embedding to PostgreSQL vector format
             embedding_str = '[' + ','.join(map(str, query_embedding)) + ']'
             
@@ -70,16 +68,16 @@ class RAGQuerySystem:
             LIMIT %s
             """
             
-            cursor.execute(query, (embedding_str, embedding_str, limit))
-            results = cursor.fetchall()
-            cursor.close()
+            with self.connection.cursor() as cursor:
+                cursor.execute(query, (embedding_str, embedding_str, limit))
+                results = cursor.fetchall()
             
             return [
                 {"id": row[0], "content": row[1], "distance": row[2]}
                 for row in results
             ]
             
-        except psycopg2.Error as e:
+        except psycopg.Error as e:
             print(f"❌ Search error: {e}")
             return []
     

@@ -1,15 +1,15 @@
 # Web Framework
-fastapi==0.104.1
-uvicorn==0.24.0
+fastapi==0.115.6
+uvicorn==0.32.1
 
 # Database
-psycopg2-binary==2.9.9
+psycopg[binary]==3.2.10
 
 # HTTP Requests
-requests==2.31.0
+requests==2.32.3
 
 # Environment Variables
-python-dotenv==1.0.0
+python-dotenv==1.0.1
 
 # Data Validation
-pydantic==2.5.0
+pydantic==2.10.3
