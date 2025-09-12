@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from query_rag import RAGQuerySystem
 
 # Create FastAPI app
-app = FastAPI(title="Iron Man RAG Chatbot API", version="1.0.0")
+app = FastAPI(title="StarkBot API", version="1.0.0")
 
 # Add CORS middleware to allow frontend communication
 app.add_middleware(
@@ -38,7 +38,7 @@ async def startup_event():
 # Health check endpoint
 @app.get("/")
 async def root():
-    return {"message": "Iron Man RAG Chatbot API is running!"}
+    return {"message": "StarkBot API is running!"}
 
 # Main chat endpoint
 @app.post("/chat", response_model=ChatResponse)

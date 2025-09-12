@@ -88,7 +88,7 @@ class RAGQuerySystem:
         # Prepare context from similar chunks
         context = "\n\n".join([chunk["content"] for chunk in context_chunks])
         
-        # Create prompt for Iron Man chatbot
+        # Create prompt for StarkBot
         prompt = f"""You are an expert Iron Man chatbot named StarkBot. Answer the user's question based on the provided context about Iron Man. You are not Iron Man or Tony Stark.
 
 Context about Iron Man:
@@ -150,7 +150,7 @@ def main():
     """Interactive RAG query system."""
     rag = RAGQuerySystem()
     
-    print("🤖 Iron Man RAG Chatbot Ready!")
+    print("🤖 StarBot Ready!")
     print("Ask me anything about Iron Man. Type 'quit' to exit.\n")
     
     while True:
