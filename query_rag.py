@@ -94,7 +94,7 @@ Context about Iron Man:
 
 User Question: {query}
 
-Provide a helpful, accurate answer based on the context. If the context doesn't contain enough information to answer the question, say so politely."""
+Provide a helpful, accurate answer based on the context. If the context doesn't contain enough information to answer the question, say so politely. Avoid statements like 'according to the context provided'."""
 
         url = f"{self.api_base}/v1/chat/completions"
         headers = {

@@ -42,7 +42,7 @@ class EmbeddingGenerator:
             "input": text,
             "model": self.embedding_model,
             "encoding_format": "float",
-            "dimensions": 512  # This is the key addition!
+            "dimensions": 512
         }
         
         try:
@@ -146,7 +146,7 @@ def main():
             else:
                 print(f"    ❌ Failed to generate embedding for chunk {i + j + 1}")
             
-            # Rate limiting - be nice to the API
+            # Rate limiting
             time.sleep(0.1)
         
         # Longer pause between batches

@@ -9,6 +9,7 @@
   top: 0;
   z-index: 1000;
   transition: transform 0.3s ease;
+  overflow: hidden; /* Prevent any horizontal overflow */
 }
 
 .sidebar.collapsed {
@@ -44,6 +45,7 @@
   flex: 1;
   padding: 0 20px;
   overflow-y: auto;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .chat-history-section {
@@ -120,7 +122,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
+  min-width: 0; /* Allow flex items to shrink below their content size */
 }
 
 .chat-item:hover {
@@ -136,6 +139,8 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex: 1;
+  min-width: 0; /* Allow content to shrink and enable text truncation */
 }
 
 .chat-title {
@@ -171,8 +176,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  margin-left: 8px;
+  flex-shrink: 0; /* Prevent the delete button from shrinking */
+  width: 24px; /* Fixed width to ensure consistent spacing */
+  height: 24px; /* Fixed height for better touch targets */
 }
 
 .chat-item:hover .delete-button {
