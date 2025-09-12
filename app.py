@@ -47,7 +47,7 @@ async def chat(request: ChatRequest):
         raise HTTPException(status_code=500, detail="RAG system not initialized")
     
     try:
-        # Use your existing query method
+        # Use existing query method
         response = rag_system.query(request.message)
         return ChatResponse(response=response)
     except Exception as e:
