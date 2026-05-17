@@ -5,11 +5,22 @@ uvicorn==0.32.1
 # Database
 psycopg[binary]==3.2.10
 
-# HTTP Requests
-requests==2.32.3
-
 # Environment Variables
 python-dotenv==1.0.1
 
 # Data Validation
 pydantic==2.10.3
+
+# OpenAI (embeddings + chat)
+openai>=1.30.0
+
+# Hybrid retrieval — cross-encoder reranking
+sentence-transformers>=3.0.0
+
+# Web scraping (for scrape_sources.py)
+beautifulsoup4>=4.12.0
+requests>=2.32.0
+
+# Evaluation
+ragas>=0.2.0
+datasets>=2.20.0

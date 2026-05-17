@@ -136,13 +136,14 @@ function App() {
       }
 
       const data = await response.json();
-      
+
       // Add bot response to conversation
-      const botMsg = { 
-        id: Date.now() + 1, 
-        type: 'bot', 
-        content: data.response, 
-        timestamp: new Date() 
+      const botMsg = {
+        id: Date.now() + 1,
+        type: 'bot',
+        content: data.response,
+        sources: data.sources || [],
+        timestamp: new Date()
       };
       const finalMessages = [...updatedMessages, botMsg];
       setMessages(finalMessages);

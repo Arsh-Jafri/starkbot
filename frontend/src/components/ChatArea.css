@@ -282,6 +282,43 @@
   color: #ff1a3a;
 }
 
+/* Source attribution */
+.message-sources {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.sources-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.source-chip {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background-color: rgba(227, 0, 34, 0.2);
+  border: 1px solid rgba(227, 0, 34, 0.4);
+  color: #ff6680;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+a.source-chip:hover {
+  background-color: rgba(227, 0, 34, 0.35);
+  border-color: rgba(227, 0, 34, 0.7);
+  color: #ff8899;
+}
+
 /* Mobile responsiveness for messages */
 @media (max-width: 768px) {
   .message-content {

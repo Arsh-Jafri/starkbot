@@ -1,3 +1,9 @@
+# Virtual environment
+.venv/
+
+# Eval results (timestamped, not source-controlled)
+eval/results_*.json
+
 # Python
 __pycache__/
 *.py[cod]
@@ -176,3 +182,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Other
+GOALS.md

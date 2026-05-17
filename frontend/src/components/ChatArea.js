@@ -46,6 +46,26 @@ const ChatArea = ({ messages, isLoading }) => {
                       message.content
                     )}
                   </div>
+                  {message.type === 'bot' && message.sources && message.sources.length > 0 && (
+                    <div className="message-sources">
+                      <span className="sources-label">Sources:</span>
+                      {message.sources.map((source, idx) => (
+                        source.url ? (
+                          <a
+                            key={idx}
+                            href={source.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="source-chip"
+                          >
+                            {source.name}
+                          </a>
+                        ) : (
+                          <span key={idx} className="source-chip">{source.name}</span>
+                        )
+                      ))}
+                    </div>
+                  )}
                   <div className="message-time">{formatTime(message.timestamp)}</div>
                 </div>
               </div>
